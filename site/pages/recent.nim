@@ -2,7 +2,7 @@ import strtabs
  
   
 proc getTitle(): string = 
-  result = "Recent Activity"
+  result = "Hackrod Recent Activity"
 
 
 include "site/templates/header.tmpl"

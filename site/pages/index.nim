@@ -2,7 +2,7 @@ import strtabs
  
   
 proc getTitle(): string = 
-  result = "An Example Script"
+  result = "Hackrod Home"
 
 
 include "site/templates/header.tmpl"
