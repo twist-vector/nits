@@ -1,0 +1,51 @@
+#! stdtmpl | standard
+#proc render*(vars: PStringTable):  string {.procvar.} = 
+#  result = ""
+
+${renderHeader(vars)}
+<div class="content">
+<h2>About HackRod package database</h2>
+
+<p>HackRod is a database of modules (or libraries) for the 
+<a href="http://force7.de/nimrod/index.html">Nimrod</a> programming language.
+Each package is in the Babel format (link TBD), which is the standard way of 
+packaging Nimrod source code.  This site provides a basic web interface to 
+package database allowing you to browse what's available as well as download
+packages of interest.  The Babel tool uses this database to locate modules.
+
+
+<h2>Finding packages</h2>
+
+<p>The <a href="/packages">browse</a> link above takes you to a page that lets
+you poke around in the database to see what's there.  You'll find a list of
+all packages, each with a brief description.  Full information about the
+package as well as the ability to download the module (if you desire) is
+also available there.</p>
+
+
+<h2>Releasing packages through HackRod</h2>
+
+<p>You can upload your own modules to be included in the HackRod database,
+but to do so you'll need to first be registered with this site.  Follow the
+<a href="/users/sign_in">log in</a> or the <a href="/upload">log in</a> link
+to register and/or log in.
+
+
+<h2>Getting the modules</h2>
+
+<p>There are a couple datasets you might be interested in: 1) the log of uploaded
+modules.  This gives you an idea of when a package was last touched and/or
+what the latest activity in the HackRod database was.  2) the list of all 
+module descriptions.  This is the entire set of Babel files that describe every
+package and version availabel in the database.  This is the list that Babel (the
+tool) uses to determine dependencies and install modules.
+
+<ul>
+<li><a href="/packages/log">upload log</a> (650K)
+<li><a href="/packages/all">tarball of package descriptions</a> (2.2MB) </li>
+</ul>
+
+</div>
+
+${renderFooter(vars)}
+

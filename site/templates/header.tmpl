@@ -1,0 +1,27 @@
+#! stdtmpl | standard
+#proc renderHeader*(vars: PStringTable):  string = 
+#  result = ""
+
+<html>
+<head>
+  <title>${getTitle()}</title>
+  <link href="/stylesheets/styles.css" media="screen" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<div class="header">
+<img src="/images/HackRodLogo.png"></img>
+<h1>HackRod, the Nimrod package database</h1>
+
+<table class="navigation">
+<tr>
+
+<td><a href="/">Introduction</a></td>
+<td><a href="/packages">Browse</a></td>
+<td><a href="/recent">What's new</a></td>
+<td><a href="/upload">Upload</a></td>
+<td><a href="/users/sign_in">Log in</a></td>
+</tr>
+</table>
+</div>
