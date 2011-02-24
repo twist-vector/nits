@@ -1,0 +1,27 @@
+#! stdtmpl | standard
+#proc render*(vars: PStringTable):  string {.procvar.} = 
+#  result = ""
+
+#var categories = NumCategoriesWithPackageCount()
+
+${renderHeader(vars)}
+
+<h2>List of packages</h2>
+
+<h3>Categories</h3>
+<p>Found ${NumCategories()} categories</p>
+${CategoriesString()}
+
+<h2>Details</h2>
+
+#for i in low(categories)..high(categories):
+<h3 class="category">${categories[i].name}</h3>
+<ul>
+#  var packages = PackagesForCategory(categories[i].id)
+#  for j in low(packages)..high(packages):
+    <li><a href="/show/${packages[j].id}" class="pkgname">${packages[j].name}</a>: ${packages[j].synop} </li>
+#  end for
+  </ul>
+#end for
+
+${renderFooter(vars)}

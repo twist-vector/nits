@@ -1,0 +1,55 @@
+#! stdtmpl | standard
+#proc render*(vars: PStringTable):  string {.procvar.} =
+#var package = GetPackageDetails(ParseInt(vars["ID"]))
+#  result = ""
+
+${renderHeader(vars)}
+
+
+<h1 class="package-title">babel</h1>
+<p>Babel framework: Specifies a common interface for programmers to more easily build their applications in portable way.</p>
+<br />
+
+<h2 class="package-summary-title">Summary</h2>
+<table id="pakage-summary-table">
+<tr><th class="package-summary-header">Category</th>
+    <td class="package-summary-entry">${package["category"]}</td>
+</tr>
+<tr><th class="package-summary-header">Depends on</th>
+    <td class="package-summary-entry">${package["depends"]}</td>
+</tr>
+<tr><th class="package-summary-header">Version</th>
+    <td class="package-summary-entry">${package["version"]}</td>
+</tr>
+<tr><th class="package-summary-header">License</th>
+    <td class="package-summary-entry">${package["license"]}</td>
+</tr>
+<tr><th class="package-summary-header">Copyright</th>
+    <td class="package-summary-entry">${package["copyright"]}</td>
+</tr>
+<tr><th class="package-summary-header">Author</th>
+    <td class="package-summary-entry">${package["author"]}</td>
+</tr>
+<tr><th class="package-summary-header">Maintainer</th>
+    <td class="package-summary-entry">${package["maintainer"]}</td>
+</tr>
+<tr><th class="package-summary-header">Exposes</th>
+    <td class="package-summary-entry">${package["exposes"]}</td>
+</tr>
+<tr><th class="package-summary-header">Uploaded on</th>
+    <td class="package-summary-entry">${package["created_at"]}</td>
+</tr>
+</table>
+
+
+<h2 class="package-summary-title">Downloads</h2>
+<ul>
+<li>Babel file: <a href="/data/babel-0.1.0/babel.babel">babel.babel</a></li>
+<li>Source: <a href="/data/babel-0.1.0/babel-0.1.0.tar.gz">babel-0.1.0.tar.gz</a></li>
+</ul>
+
+<a href="/browse">Back</a>
+
+
+${renderFooter(vars)}
+
