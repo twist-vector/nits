@@ -1,0 +1,131 @@
+
+This is the README for the Nimrod-based web application framework NitS.
+
+NitS: Nimrod in the Sky...
+
+OK, that's probably not the name we'll keep, but it's good enough until we can
+come up with something better.  Think of it as a codename.
+
+
+Design
+======
+
+At the moment NitS is a SCGI-based framework.  It is composed of a main server
+that acts as a sort of broker; accepting connections (port 4000 by default) and
+passing requests on to renderer.  The renderers are Nimrod routines that use the
+Nimrod templating facility to generate the returned pages.
+
+Goals
+-----
+
+Ideally we'd like the system to accomplish the following:
+
+1) Separate the HTML markup from working Nimrod code as much as and/or when
+helpful
+
+2) Allow the mixing of Nimrod code with the HTML when it makes things clearer
+
+3) Make it easy, with as much automation as possible, to add pages to the site
+
+
+Overview
+========
+
+OK, without getting into too many words, here's the gisdt of how NitS works. 
+First, the fields a request from a client (via the web server).  It looks at the
+requested path and "maps" the path to a Nimrod module.  Specifically, if the URL
+is something like "http://whatever.com/a/long/path" the path, as processed by
+the NitS framework would be ``/a/long/path``.  The server then does a couple
+things:
+
+1) Checks to see if that path represents a static file.  If it is it simply
+returns the file.
+
+2) Checks the "routing" information (as defined in the ``config/routes.nim``
+configuration file.  If a routing for the path is defined, the specified
+module/procedure is called.
+
+3) If not route is found, a 404 error is returned (nothing found).
+
+
+Template Handling
+-----------------
+
+So how are the wrappers and templates related?  This is probably best described
+with an example.  Suppose we have a path ``/hello`` mapped to the handler
+`hello.render``.  That is, any request for ``http://whatever.com/hello`` would
+be passed off by the server to the ``render`` function of the ``hello`` module.
+
+The "wrapper" Nimrod ``hello.nim`` file which defines the hello module could
+look like this::
+
+  import strtabs
+  
+  proc getTitle(): string = 
+    result = "Hello Example"
+
+  include "site/templates/hello.tmpl"
+
+The render function is defined in the template, ``hello.tmpl``::
+
+  #! stdtmpl | standard
+  #proc render*(vars: PStringTable):  string {.procvar.} = 
+  #  result = ""
+  <head><title>${getTitle()}</title></head>
+  <body>
+  <h2>Recent activity</h2>
+  <p>Whatever</p>
+  </body>
+
+As can be seen, the bulk of the "programming" can occur in procedures in the
+Nimrod source file while the template can look much like a typical HTML page. 
+Of special note is the ability to "call back" into module, for example the
+``getTitle()`` call.  The templating facility of Nimrod gives great flexibility
+including looping, conditionals, system calls, etc.
+
+
+Adding Pages
+------------
+
+So the procedure to add new pages to the site (which we hop to make as easy as
+possible), is to:
+
+1) Define a route as a mapping between a URL path and a module "renderer"
+
+2) Write the wrapper module which "includes" the template
+
+3) Write the template to generate the HTML page desired, calling back to the
+module functions as needed.  Note, make sure the function named in the route is
+defined in the template.
+
+
+Directory Structure
+===================
+
+The directory structure is designed to make it easy to locate the various parts
+of the framework and separate the "view" from the "controller".  It generally
+looks like this::
+
+   -+-config
+    |
+    +-src
+    |  +-server
+    |
+    +-site
+       +-pages
+       +-templates
+       +-static
+           +-images
+           +-stylesheets
+
+The ``config`` and ``src`` directories hold the code for the NitS framework
+itself.  The site directory (and sub-directories) hold the code and pages for
+the website being deployed.  The ``static`` directories hold the various HTML
+pages, style sheets, and images used to construct the site.
+
+The more interesting directories are ``templates`` and ``pages``.  These
+directories hold the dynamic Nimrod elements used to generate pages.  The
+``pages`` directory holds the "wrapper" modules, while ``templates`` hold the
+Nimrod templates which are processed by the wrappers. 
+
+
